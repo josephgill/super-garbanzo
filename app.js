@@ -86,7 +86,7 @@ var clickcount = 0;
 		var islegalm= false
 
 		
-		if(($(".piece").hasClass("piece--white--king"))||($(".piece").hasClass("piece--black--king"))) {			
+		if(($(piece).hasClass("piece--white--king"))||($(".piece").hasClass("piece--black--king"))) {			
 			if(fromIdnumber !== toIdnumber+1&&(fromIdnumber !== toIdnumber-1)){
 				isLegal= false;
 
