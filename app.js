@@ -1,17 +1,17 @@
 
 // var loop = false
-// var turn = 0 
+ //var turn = 0 
 // while (turn<4){
-// 	if (turn % 2 == 0){
-// 		console.log("Its player 1's turn");
-// 	}
-// 	else{
-// 		console.log("Its player 2's turn");
+	//if (turn % 2 == 0){
+ 		//console.log("Its player 1's turn");
+ 	//}
+	//else{
+		//console.log("Its player 2's turn");
 // 		}
 // 	var piece = prompt("what piece would you like to move(give coordinates)"
 //	var move = prompt("What would you like your move to be ?")
 //     console.log(piece,"to",move)
-// 	turn = turn+1
+ 	//turn = turn+1
 //     loop = true
 // }$( document ).ready(function() {
 
@@ -26,6 +26,7 @@ var clickcount = 0;
 
 	var fromId,
 		toId;
+	var turn = 0
 
 	$( ".square" ).click(function( event ) {
 
@@ -72,33 +73,45 @@ var clickcount = 0;
 		// figoure out the color
 		var foward,
 		piececolour;
-		fromIdnumber = fromId.substring(1,2);
-		toIdnumber = toId.substring(1,2);
+		var num = 0;
+		var number = 0;
+		number = parseInt(number)
+		var fromIdnumbermid;
+		var fromIdnumber = fromId.substring(1,2);
+		var toIdnumber = toId.substring(1,2);
 		fromIdnumber = parseInt(fromIdnumber);
 		toIdnumber = parseInt(toIdnumber);
 		fromIdletter = fromId.substring(0,1)
 		toIdletter = toId.substring(0,1)
-		console.log(toIdletter)
-		console.log(fromIdletter)
 		var isLegalfoward = false
 		var islegalm= false
+
+		
+
 		if ($(piece).hasClass("piece--white")){
 			piececolour = "white"
+			players = "player 1"
 		}
 		else if (($(piece).hasClass("piece--black"))){
 			piececolour = "black";
+			players = "player 2"
 		}
 		if (piececolour === "white"){
-			if(fromIdnumber !== toIdnumber+1){
 
+			if(fromIdnumber !== toIdnumber+1){
 				isLegal= false;
+				num = num+2
 			}
 		}
-		else if (piececolour === "black"){
+	
+		 if (piececolour === "black"){
 			if(fromIdnumber !== toIdnumber-1){
 				isLegal= false;
+				num=num-2
 			}
 		}
+
+	
 
 		if($("[data-square-id=" + toId + "]" ).hasClass("white")) {
 			colour =  "white";
@@ -109,6 +122,7 @@ var clickcount = 0;
 		if (colour === "white"){
 			isLegal = false;
 		}
+
 
 
 		if (toIdletter === 'A'){
@@ -161,24 +175,90 @@ var clickcount = 0;
 		else if (fromIdletter === 'H'){
 			fromIdletter=8
 			}
-		
+		if ((fromIdnumber < toIdnumber)){
+			number = number+1
+		}
+		if (fromIdnumber > toIdnumber){
+			number=number-1;
+		} 
 		toIdletter = parseInt(toIdletter);
 		fromIdletter = parseInt(fromIdletter);
-
-		if (fromIdletter!==toIdletter+1&&fromIdletter!==toIdletter-1)
+		if (fromIdletter > toIdletter){
+			num =-1
+		} 
+		if (fromIdletter < toIdletter){
+			num = 1
+		} 
+		if (fromIdletter!==toIdletter+1&&fromIdletter!==toIdletter-1){
 			isLegal = false;
-		// if (isLegalm === true){
-		// 	if (isLegalfoward===true){
-				
-		// 	}
-		// }
+		}
 		if ($("[data-square-id=" + toId + "]").find('.piece').length === 1){
 			isLegal = false;
 		}
+		console.log(fromIdletter+num)
+		console.log(num)
+		var fromIdlettermid = fromIdletter + num
+		console.log(fromIdlettermid)
+
+
+		if (fromIdlettermid === 1){
+			fromIdlettermid='A'
+		}
+		else if (fromIdlettermid ===  2){
+			fromIdlettermid='B'
+			}
+		else if (fromIdlettermid === 3){
+			fromIdlettermid='C'
+			}
+
+		else if (fromIdlettermid === 4){
+			fromIdlettermid='D'
+			}
+		else if (fromIdlettermid === 5){
+			fromIdlettermid='E'
+			}
+		else if (fromIdlettermid === 6){
+			fromIdlettermid='F'
+			}
+		else if (fromIdlettermid === 7){
+			fromIdlettermid='G'
+			}
+		else if (fromIdlettermid === 8){
+			fromIdlettermid='H'
+			}
+
+			console.log(fromIdlettermid)
+
+		var fromIdnumbermid = fromIdnumber+number;
+		var complete = fromIdlettermid+fromIdnumbermid;
+
+		// If the user is moving two squares diagonally
+		
+		if((fromIdletter===toIdletter+2||fromIdletter===toIdletter-2&& fromIdnumber === toIdnumber+2|| fromIdnumber=== toIdnumber-2)) {
+
+			console.log('DEBUG: User is moving two squares.');
+			console.log(complete)
+
+			// Does the middle square contain a piece?
+			if ($("[data-square-id=" + complete + "]").find('.piece').length === 1) {
+
+				var middle = ('DEBUG: Middle square contains piece.');
+				console.log(middle)
+				$("[data-square-id=" + fromId + "]").find('.piece').appendTo( $("[data-square-id=" + toId + "]"))
+				
+				console.log('COMPLETE: ' + complete);
+				$("[data-square-id=" + complete + "]").find('.piece').remove();
+			
+				// Remove the piece
+
+
+			}
+
+		}
 
 		return isLegal;
-
 	}
+
 
 
 
