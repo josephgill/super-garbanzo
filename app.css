@@ -42,10 +42,18 @@
 		background: white;
 		border-color: black;
 	}
-	.piece--black {
+.piece--black {
 		background: black;
 		border-color: white;
 	}
+
+.piece--white--king{
+			background: gold;
+}
+.piece--black--king{
+			background: silver;
+
+}
 
 .square {
 	width: 50px;

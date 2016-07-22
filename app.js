@@ -8,7 +8,6 @@
 	//else{
 		//console.log("Its player 2's turn");
 // 		}
-// 	var piece = prompt("what piece would you like to move(give coordinates)"
 //	var move = prompt("What would you like your move to be ?")
 //     console.log(piece,"to",move)
  	//turn = turn+1
@@ -87,29 +86,39 @@ var clickcount = 0;
 		var islegalm= false
 
 		
+		if(($(".piece").hasClass("piece--white--king"))||($(".piece").hasClass("piece--black--king"))) {			
+			if(fromIdnumber !== toIdnumber+1&&(fromIdnumber !== toIdnumber-1)){
+				isLegal= false;
 
-		if ($(piece).hasClass("piece--white")){
+			}
+		}else if ($(piece).hasClass("piece--white")){
 			piececolour = "white"
 			players = "player 1"
 		}
-		else if (($(piece).hasClass("piece--black"))){
+		else if ($(piece).hasClass("piece--black")){
 			piececolour = "black";
 			players = "player 2"
 		}
-		if (piececolour === "white"){
+		
+		// IF piece is king
 
-			if(fromIdnumber !== toIdnumber+1){
+		 if (piececolour === "white"){
+			// Check if it's trying to move more than 1 space
+			// forwards or backwards
+
+			if(fromIdnumber !== toIdnumber+1) {
 				isLegal= false;
-				num = num+2
+				num = num+2;
 			}
-		}
-	
-		 if (piececolour === "black"){
+		} else if (piececolour === "black"){
+
 			if(fromIdnumber !== toIdnumber-1){
 				isLegal= false;
-				num=num-2
+				num=num-2;
 			}
+
 		}
+
 
 	
 
@@ -192,13 +201,15 @@ var clickcount = 0;
 		if (fromIdletter!==toIdletter+1&&fromIdletter!==toIdletter-1){
 			isLegal = false;
 		}
+
+			
 		if ($("[data-square-id=" + toId + "]").find('.piece').length === 1){
 			isLegal = false;
+			console.log(isLegal)
+
 		}
-		console.log(fromIdletter+num)
-		console.log(num)
+
 		var fromIdlettermid = fromIdletter + num
-		console.log(fromIdlettermid)
 
 
 		if (fromIdlettermid === 1){
@@ -227,20 +238,19 @@ var clickcount = 0;
 			fromIdlettermid='H'
 			}
 
-			console.log(fromIdlettermid)
 
 		var fromIdnumbermid = fromIdnumber+number;
 		var complete = fromIdlettermid+fromIdnumbermid;
 
 		// If the user is moving two squares diagonally
 		
-		if((fromIdletter===toIdletter+2||fromIdletter===toIdletter-2&& fromIdnumber === toIdnumber+2|| fromIdnumber=== toIdnumber-2)) {
+		if(fromIdletter === toIdletter+2 ||fromIdletter === toIdletter-2 &&fromIdnumber === toIdnumber+2 ||fromIdnumber === toIdnumber-2) {
 
 			console.log('DEBUG: User is moving two squares.');
-			console.log(complete)
 
 			// Does the middle square contain a piece?
-			if ($("[data-square-id=" + complete + "]").find('.piece').length === 1) {
+			if ($("[data-square-id=" + complete + "]").find('.piece').length===1) {
+				console.log(isLegal)
 
 				var middle = ('DEBUG: Middle square contains piece.');
 				console.log(middle)
@@ -256,6 +266,13 @@ var clickcount = 0;
 
 		}
 
+		if ($(".whiteking").find('.piece--white').length === 1){
+			$( ".whiteking").find('.piece--white').addClass( "piece--white--king" );
+
+		}
+		if ($(".blackking").find('.piece--black').length === 1){
+			$( ".blackking").find('.piece--black').addClass( "piece--black--king" );
+		}
 		return isLegal;
 	}
 
@@ -264,7 +281,10 @@ var clickcount = 0;
 
 
 
-
+	// is a white piece been on the white king line.
+	// if yes change the white piece to a white king.
+	// is the black piece on the black piece line.
+	// if yes change the black piece to a black king.
 
 
 });
