@@ -244,12 +244,12 @@ var clickcount = 0;
 
 		// If the user is moving two squares diagonally
 		
-		if(fromIdletter === toIdletter+2 ||fromIdletter === toIdletter-2 &&fromIdnumber === toIdnumber+2 ||fromIdnumber === toIdnumber-2) {
+		if(fromIdletter === toIdletter+2 ||fromIdletter === toIdletter-2 && fromIdnumber === toIdnumber+2 ||fromIdnumber === toIdnumber-2) {
 
 			console.log('DEBUG: User is moving two squares.');
 
 			// Does the middle square contain a piece?
-			if ($("[data-square-id=" + complete + "]").find('.piece').length===1) {
+			if ($("[data-square-id=" + complete + "]").find('.piece').length===1 && $("[data-square-id=" + toId + "]").find('.piece').length === 0){
 				console.log(isLegal)
 
 				var middle = ('DEBUG: Middle square contains piece.');
